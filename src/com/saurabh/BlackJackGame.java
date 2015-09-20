@@ -42,9 +42,10 @@ public class BlackJackGame {
         for (int i = 0; i < 2; i++) {
             playersHand.addCard(deck.deal());
             dealersHand.addCard(deck.deal());
-            dealersHand.show(true, true);
-            playersHand.show(false, false);
+
         }
+        dealersHand.show(true, true);
+        playersHand.show(false, false);
     }
 
     public void betting() {
