@@ -5,10 +5,10 @@ import java.io.IOException;
 /**
  * Created by saurabh.jain on 18/09/2015.
  */
-public class BlackJackApp {
+public class BlackJack {
 
     public static void main(String[] args) throws IOException {
-        BlackJackGame game = new BlackJackGame();
+        Game game = new Game();
         game.play();
     }
 }

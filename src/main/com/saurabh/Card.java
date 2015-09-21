@@ -18,13 +18,20 @@ public class Card {
             case 2: suit = "Clubs"; break;
             default: suit = "Diamonds";
         }
-        if(number == 1) value = "Ace";
-        else if(number == 10) value = "Ten";
-        else if(number == 11) value = "Jack";
-        else if(number == 12) value = "Queen";
-        else if(number == 13) value = "King";
-        else value = Integer.toString(number);
-        if(number>10) number = 10;
+        if(number == 1)
+            value = "Ace";
+        else if(number == 10)
+            value = "Ten";
+        else if(number == 11)
+            value = "Jack";
+        else if(number == 12)
+            value = "Queen";
+        else if(number == 13)
+            value = "King";
+        else
+            value = Integer.toString(number);
+        if(number>10)
+            number = 10;
 
     }
 

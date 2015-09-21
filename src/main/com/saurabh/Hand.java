@@ -14,11 +14,20 @@ public class Hand {
         cards = new Card[maxCards];
     }
 
+    /**
+     * Adds a card to the player's/dealer's hand
+     * @param deal {@link Card}
+     */
     public void addCard(Card deal) {
         cards[numCards] = deal;
         ++numCards;
     }
 
+    /**
+     * Displays the type and the value of the card to the console.
+     * @param dealer
+     * @param firstCard
+     */
     public void show(boolean dealer, boolean firstCard) {
         if (dealer) {
             System.out.println("Dealer's cards are: ");
@@ -53,6 +62,11 @@ public class Hand {
         return false;
     }
 
+    /**
+     * Determines if the value of the hand is below is specified number
+     * @param n
+     * @return Returns true if its under
+     */
     public boolean under(int n) {
         int points = 0;
         for (int i = 0; i < numCards; ++i) {
@@ -65,6 +79,10 @@ public class Hand {
         }
     }
 
+    /**
+     * Returns the total value of all the card for a plaer/dealer
+     * @return
+     */
     public int getTotalValue() {
         int cardValue = 0;
         for (int i = 0; i < numCards; ++i) {

@@ -6,7 +6,7 @@ import java.util.Scanner;
 /**
  * Created by Saurabh on 20/09/2015.
  */
-public class BlackJackGame {
+public class Game {
     private int bet;
     private int chip;
     private Deck deck;
@@ -14,13 +14,36 @@ public class BlackJackGame {
     private Hand dealersHand;
     private Scanner usersInput;
 
-    public BlackJackGame() {
+    /**
+     * Constructor
+     */
+    public Game() {
         this.bet = 0;
         this.chip = 100;
         this.deck = new Deck();
         usersInput = new Scanner(System.in);
     }
 
+    /**
+     * Setter to set chip's value.
+     * @param chip Number of chips
+     */
+    public void setChip(int chip) {
+        this.chip = chip;
+    }
+
+    /**
+     * Setter to set the bet value.
+     * @param bet Value of the bet
+     */
+    public void setBet(int bet) {
+        this.bet = bet;
+    }
+
+    /**
+     * Main method which start the blackjack game.
+     * @throws IOException
+     */
     public void play() throws IOException {
         System.out.println("Welcome to Blackjack!");
         System.out.println("You have " + chip + " chips.");
@@ -29,10 +52,11 @@ public class BlackJackGame {
             betting();
             if (bet > 0) {
                 startDeal();
-
+                // If the inital 2 card of the player is 21.
                 if (playersHand.blackjack())
                     playerWins();
 
+                // If the total value for the player is under 22 and the player wants another card.
                 while (playersHand.under(22) && playerTakesAHit()) {
                     playersHand.addCard(deck.deal());
                     playersHand.show(false, false);
@@ -50,6 +74,9 @@ public class BlackJackGame {
         } while (bet > 0);
     }
 
+    /**
+     * Determines if the player or dealer has won and then calls the appropriate method.
+     */
     private void showResults() {
         if (playersHand.busted()) {
             dealerWins();
@@ -64,13 +91,21 @@ public class BlackJackGame {
         }
     }
 
+    /**
+     * Method is called if the dealer wins
+     */
     public void dealerWins() {
         chip -= bet;
         System.out.println("Dealer wins!!!!.");
         System.out.println("You now have " + Integer.toString(chip) + " chips");
     }
 
-    private boolean playerTakesAHit() throws IOException {
+    /**
+     * Called if the player wants another card.
+     * @return Returns true if 'H' is inputed.
+     * @throws IOException
+     */
+    public boolean playerTakesAHit() throws IOException {
         char a = ' ';
         do {
             System.out.print("Hit (H) or Stand (S)? ");
@@ -91,7 +126,9 @@ public class BlackJackGame {
         } while (true);
     }
 
-
+    /**
+     * Deals the cards out the player and the dealer.
+     */
     public void startDeal() {
         playersHand = new Hand();
         dealersHand = new Hand();
@@ -106,6 +143,9 @@ public class BlackJackGame {
         System.out.println("Player's hand is " + playersHand.getTotalValue());
     }
 
+    /**
+     * Determines how much the user has bet on the game.
+     */
     public void betting() {
         do {
             // End if the player has no more chips left
@@ -124,6 +164,9 @@ public class BlackJackGame {
 
     }
 
+    /**
+     * Called is the player wins the game.
+     */
     private void playerWins() {
         chip = chip + bet;
         System.out.println("Player wins " + Integer.toString(bet) + " chips.");
