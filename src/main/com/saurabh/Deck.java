@@ -6,13 +6,13 @@ import java.util.Random;
  * Created by Saurabh on 20/09/2015.
  */
 public class Deck {
-    private int[] deck;   // An array of 52 Cards, representing the deck.
+    private int[] deck;   // An array of 208 Cards, representing 4 decks.
     private int nextCard; // How many cards have been dealt from the deck.
     private Random random;
 
     public Deck() {
-        deck = new int[52];
-        for (int i = 0; i < 52; i++) {
+        deck = new int[208];
+        for (int i = 0; i < 208; i++) {
             deck[i] = i;
         }
         nextCard = 0;
@@ -21,7 +21,7 @@ public class Deck {
     }
 
     private void shuffle() {
-        for(int i = 0;i<52;++i) {
+        for(int i = 0;i<208;++i) {
             // Randomly exchange two cards in the deck.
             int j = randomCard();
             int k = randomCard();
@@ -40,7 +40,7 @@ public class Deck {
     }
 
     public Card deal() {
-        if(nextCard>51) {
+        if(nextCard>156) {
             shuffle();
             nextCard = 0;
         }

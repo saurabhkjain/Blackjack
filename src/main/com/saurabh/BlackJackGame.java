@@ -32,15 +32,18 @@ public class BlackJackGame {
 
                 if (playersHand.blackjack())
                     playerWins();
+
                 while (playersHand.under(22) && playerTakesAHit()) {
                     playersHand.addCard(deck.deal());
                     playersHand.show(false, false);
                     System.out.println("Player's hand is " + playersHand.getTotalValue());
+                    if (playersHand.getTotalValue() == 21)
+                        playerWins();
                 }
-                while(dealersHand.mustHit())
+                while (dealersHand.mustHit())
                     dealersHand.addCard(deck.deal());
 
-                dealersHand.show(true,false);
+                dealersHand.show(true, false);
                 System.out.println("Dealer is now showing " + dealersHand.getTotalValue());
                 showResults();
             }
@@ -48,35 +51,23 @@ public class BlackJackGame {
     }
 
     private void showResults() {
-        if(playersHand.busted() && dealersHand.busted()) {
-            tie();
-        }
-        else if(playersHand.busted()) {
+        if (playersHand.busted()) {
             dealerWins();
-        }
-        else if(dealersHand.busted()) {
+        } else if (dealersHand.busted()) {
             playerWins();
-        }
-        else if(playersHand.score() > dealersHand.score()) {
+        } else if (playersHand.score() > dealersHand.score()) {
             playerWins();
-        }
-        else if(playersHand.score() < dealersHand.score()) {
+        } else if (playersHand.score() < dealersHand.score()) {
             dealerWins();
-        }
-        else {
-            tie();
+        } else {
+            dealerWins();
         }
     }
 
     public void dealerWins() {
         chip -= bet;
         System.out.println("Dealer wins!!!!.");
-        System.out.println("You now have " + Integer.toString(chip)+ " chips");
-    }
-
-    public void tie() {
-        System.out.println("Tie.");
-        System.out.println("You now have " + Integer.toString(chip)+ " chips");
+        System.out.println("You now have " + Integer.toString(chip) + " chips");
     }
 
     private boolean playerTakesAHit() throws IOException {
@@ -112,16 +103,23 @@ public class BlackJackGame {
         }
         dealersHand.show(true, true);
         playersHand.show(false, false);
-        System.out.println("Player's hand is "+ playersHand.getTotalValue());
+        System.out.println("Player's hand is " + playersHand.getTotalValue());
     }
 
     public void betting() {
         do {
-            System.out.println("How much do you want to bet?");
+            // End if the player has no more chips left
+            if (chip == 0) {
+                System.out.println("You don't have any more chips left. The game will now exit");
+                System.exit(0);
+            }
+            System.out.println("How much do you want to bet? (Enter 0 to end)");
             System.out.flush();
             bet = Integer.parseInt(usersInput.nextLine());
             if (bet < 0 || bet > chip)
                 System.out.println("Your must choose between 0 and " + chip + '.');
+            if (bet == 0)
+                break;
         } while (bet < 0 || bet > chip);
 
     }
